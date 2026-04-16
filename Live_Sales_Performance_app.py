@@ -414,4 +414,4 @@ if not weather.empty:
     weather_display['rain'] = weather_display['rain'].apply(lambda x: f'{x} mm' if pd.notnull(x) else 'N/A')
     st.dataframe(weather_display[['city', 'condition', 'temperature', 'rain', 'impact', 'sales_signal']], use_container_width=True, hide_index=True)
 
-st.success('War Room Deliverable Status: Auto-refresh is active, decision-first command layout is enabled, alert-first monitoring is visible, and Day 3 weather impact is integrated for active cities.')
+st.success('War Room Deliverable Status: Auto-refresh is active, decision-first command layout is enabled, alert-first monitoring is visible, and The weather impact is integrated for active cities.')
