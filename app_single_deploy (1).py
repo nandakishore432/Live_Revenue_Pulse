@@ -223,11 +223,32 @@ with bottom_left:
     fig_line.add_trace(go.Scatter(x=timeline['timestamp'], y=timeline['price'], mode='lines+markers', line=dict(color='#5cc8ff', width=3), marker=dict(size=7), fill='tozeroy'))
     fig_line.update_layout(title='⏱️ Revenue Trend (5-Min Buckets)', template='plotly_dark', paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=340, margin=dict(l=20, r=20, t=50, b=20), yaxis_title='Revenue', xaxis_title='Time')
     st.plotly_chart(fig_line, use_container_width=True)
-
 with bottom_right:
     product_mix = df.groupby('product', as_index=False)['price'].sum()
-    fig_pie = px.pie(product_mix, names='product', values='price', title='🛍️ Product Revenue Mix', hole=0.55)
-    fig_pie.update_layout(template='plotly_dark', paper_bgcolor='rgba(0,0,0,0)', color='#ffffff', height=340)
+
+    fig_pie = px.pie(
+        product_mix,
+        names='product',
+        values='price',
+        title='🛍️ Product Revenue Mix',
+        hole=0.55
+    )
+
+    fig_pie.update_traces(
+        textinfo='label+percent',
+        textfont=dict(color='white', size=14),
+        insidetextorientation='horizontal'
+    )
+
+    fig_pie.update_layout(
+        template='plotly_dark',
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        height=340,
+        font=dict(color='white'),
+        legend=dict(font=dict(color='white'))
+    )
+
     st.plotly_chart(fig_pie, use_container_width=True)
 
 st.markdown('### 🛰️ Live Sales Feed')
