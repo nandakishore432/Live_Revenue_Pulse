@@ -192,7 +192,7 @@ def load_data():
     df = pd.read_sql_query('SELECT * FROM sales ORDER BY order_id ASC', conn)
     conn.close()
     if not df.empty:
-        df['timestamp'] = pd.to_datetime(df['timestamp'])
+        df['timestamp'] = pd.to_datetime(df['timestamp'], utc=True, errors='coerce').dt.tz_convert(IST)
         df['price'] = pd.to_numeric(df['price'])
         df['units'] = pd.to_numeric(df['units'])
         df['demand_score'] = pd.to_numeric(df['demand_score'])
