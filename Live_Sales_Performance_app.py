@@ -1,4 +1,4 @@
-import random
+ import random
 import sqlite3
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -17,9 +17,7 @@ REFRESH_MS = 5000
 SALE_INTERVAL_SECONDS = 30
 HEAT_THRESHOLD = 35
 MAX_ROWS = 2500
-IST = ZoneInfo("Asia/Kolkata")
-def now_ist():
-    return datetime.now(IST)
+IST = ZoneInfo('Asia/Kolkata')
 
 BRAND_PRODUCT_MAP = {
     'Apple': ['Phone', 'Tablet', 'Smartwatch'],
@@ -58,6 +56,11 @@ WEATHER_CODE_MAP = {
 }
 RAIN_CODES = {51, 53, 55, 61, 63, 65, 80, 81, 82, 95}
 
+
+def now_ist():
+    return datetime.now(IST)
+
+
 st.markdown('''
 <style>
 [data-testid="stAppViewContainer"]{background: radial-gradient(circle at top left, #17345d 0%, #0c1730 35%, #070f1e 100%);color:#eef6ff;}
@@ -90,8 +93,10 @@ section[data-testid="stSidebar"]{background: linear-gradient(180deg, #091120 0%,
 
 st_autorefresh(interval=REFRESH_MS, key='live_refresh')
 
+
 def get_conn():
     return sqlite3.connect(DB_FILE, check_same_thread=False)
+
 
 def init_db():
     conn = get_conn()
@@ -114,6 +119,7 @@ def init_db():
     conn.commit()
     conn.close()
 
+
 def get_max_order_id():
     conn = get_conn()
     cur = conn.cursor()
@@ -121,6 +127,7 @@ def get_max_order_id():
     value = cur.fetchone()[0]
     conn.close()
     return value
+
 
 def get_last_timestamp():
     conn = get_conn()
@@ -131,6 +138,7 @@ def get_last_timestamp():
     if row and row[0]:
         return datetime.fromisoformat(row[0])
     return None
+
 
 def generate_fake_sale(next_order_id):
     brand = random.choice(list(BRAND_PRODUCT_MAP.keys()))
@@ -151,6 +159,7 @@ def generate_fake_sale(next_order_id):
         'order_status': random.choice(ORDER_STATUS),
     }
 
+
 def append_sale_if_due():
     last_ts = get_last_timestamp()
     now = now_ist()
@@ -159,7 +168,8 @@ def append_sale_if_due():
         conn = get_conn()
         pd.DataFrame([sale]).to_sql('sales', conn, if_exists='append', index=False)
         conn.close()
-        
+
+
 def trim_rows():
     conn = get_conn()
     cur = conn.cursor()
@@ -171,6 +181,7 @@ def trim_rows():
         conn.commit()
     conn.close()
 
+
 def load_data():
     conn = get_conn()
     df = pd.read_sql_query('SELECT * FROM sales ORDER BY order_id ASC', conn)
@@ -181,6 +192,7 @@ def load_data():
         df['units'] = pd.to_numeric(df['units'])
         df['demand_score'] = pd.to_numeric(df['demand_score'])
     return df
+
 
 @st.cache_data(ttl=300, show_spinner=False)
 def fetch_weather(city):
@@ -205,6 +217,7 @@ def fetch_weather(city):
         sales_signal = 'No strong weather disruption signal currently'
     return {'city': city, 'temperature': temp, 'rain': rain, 'condition': condition, 'impact': impact, 'sales_signal': sales_signal}
 
+
 def build_weather_table(cities):
     rows = []
     for city in cities:
@@ -214,8 +227,10 @@ def build_weather_table(cities):
             rows.append({'city': city, 'temperature': None, 'rain': None, 'condition': 'Unavailable', 'impact': 'Unknown', 'sales_signal': 'Weather API unavailable for this city'})
     return pd.DataFrame(rows)
 
+
 def fmt_inr(x):
     return f'₹{x:,.0f}'
+
 
 init_db()
 append_sale_if_due()
@@ -263,14 +278,12 @@ with col_a:
     st.markdown('<div class="banner-sub">Command-center dashboard for live revenue monitoring, anomaly response, and weather-linked city action</div>', unsafe_allow_html=True)
 with col_b:
     st.markdown('<div style="text-align:right;"><span class="live-pill"><span class="pulse-dot"></span>LIVE AUTO REFRESH 5s</span></div>', unsafe_allow_html=True)
-    updated_time_ist = now_ist().strftime("%d-%m-%Y %H:%M:%S IST")
-
-st.markdown(
-    f'<div class="small-note" style="text-align:right;margin-top:8px;">Updated: {updated_time_ist}</div>',
-    unsafe_allow_html=True
-)
-  
-st.markdown(f'<div class="small-note" style="text-align:right;margin-top:4px;">Next sale cycle: ~{SALE_INTERVAL_SECONDS}s cadence</div>', unsafe_allow_html=True)
+    updated_time_ist = now_ist().strftime('%d-%m-%Y %H:%M:%S IST')
+    st.markdown(
+        f'<div class="small-note" style="text-align:right;margin-top:8px;">Updated: {updated_time_ist}</div>',
+        unsafe_allow_html=True
+    )
+    st.markdown(f'<div class="small-note" style="text-align:right;margin-top:4px;">Next sale cycle: ~{SALE_INTERVAL_SECONDS}s cadence</div>', unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('<div class="delta-strip">', unsafe_allow_html=True)
