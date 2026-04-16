@@ -270,7 +270,7 @@ st.markdown(
     unsafe_allow_html=True
 )
   
-    st.markdown(f'<div class="small-note" style="text-align:right;margin-top:4px;">Next sale cycle: ~{SALE_INTERVAL_SECONDS}s cadence</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="small-note" style="text-align:right;margin-top:4px;">Next sale cycle: ~{SALE_INTERVAL_SECONDS}s cadence</div>', unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('<div class="delta-strip">', unsafe_allow_html=True)
