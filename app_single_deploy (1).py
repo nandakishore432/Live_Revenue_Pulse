@@ -21,6 +21,8 @@ PRODUCTS = {
     'Tablet': [15000, 22000, 30000],
     'Headphones': [2000, 3500, 5000],
     'Smartwatch': [3000, 6000, 9000],
+    'Speakers': [4500, 6000, 7500],
+    'DSLR Camperas': [34500, 39500, 43500],
 }
 
 CITY_COORDS = {
@@ -29,6 +31,8 @@ CITY_COORDS = {
     'Bengaluru': {'lat': 12.9716, 'lon': 77.5946},
     'Mumbai': {'lat': 19.0760, 'lon': 72.8777},
     'Pune': {'lat': 18.5204, 'lon': 73.8567},
+    'Kolkata': {'lat': 22.5726, 'lon': 88.3639},
+    'New Delhi': {'lat': 28.6139, 'lon': 77.2088},
 }
 
 WEATHER_CODE_MAP = {
@@ -172,7 +176,7 @@ last_10m = df[df['timestamp'] >= now - timedelta(minutes=10)]
 st.markdown('<div class="war-room">', unsafe_allow_html=True)
 col_a, col_b = st.columns([4, 1])
 with col_a:
-    st.markdown('<div class="hero-title">📈 Live Revenue Pulse</div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero-title">📈 Automated Live Revenue Pulse </div>', unsafe_allow_html=True)
     st.markdown('<div class="hero-sub">Real-time sales command center with weather-linked city monitoring</div>', unsafe_allow_html=True)
 with col_b:
     st.markdown('<div style="text-align:right;"><span class="live-pill">● AUTO REFRESH 5s</span></div>', unsafe_allow_html=True)
@@ -222,7 +226,7 @@ with bottom_left:
 
 with bottom_right:
     product_mix = df.groupby('product', as_index=False)['price'].sum()
-    fig_pie = px.pie(product_mix, names='product', values='price', title='🛍️ Product Revenue Mix', hole=0.55)
+    fig_pie = px.pie(product_mix, names='product', values='price', color:#ffffff, title='🛍️ Product Revenue Mix', hole=0.55)
     fig_pie.update_layout(template='plotly_dark', paper_bgcolor='rgba(0,0,0,0)', height=340)
     st.plotly_chart(fig_pie, use_container_width=True)
 
