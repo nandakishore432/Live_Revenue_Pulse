@@ -218,6 +218,7 @@ with right:
 
 bottom_left, bottom_right = st.columns([1.25, 1])
 with bottom_left:
+    st.markdown('### ⏱️ Revenue Trend (5-Min Buckets)')
     timeline = df.set_index('timestamp').resample('5min')['price'].sum().reset_index()
     fig_line = go.Figure()
     fig_line.add_trace(go.Scatter(x=timeline['timestamp'], y=timeline['price'], mode='lines+markers', line=dict(color='#5cc8ff', width=3), marker=dict(size=7), fill='tozeroy'))
@@ -226,14 +227,6 @@ with bottom_left:
 with bottom_right:
     st.markdown('### 🛍️ Product Revenue Mix')
     product_mix = df.groupby('product', as_index=False)['price'].sum()
-
-    fig_pie = px.pie(
-        product_mix,
-        names='product',
-        values='price',
-        title='🛍️ Product Revenue Mix',
-        hole=0.55
-    )
 
     fig_pie.update_traces(
         textinfo='label+percent',
