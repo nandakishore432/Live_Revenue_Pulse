@@ -18,6 +18,7 @@ SALE_INTERVAL_SECONDS = 30
 HEAT_THRESHOLD = 35
 MAX_ROWS = 2500
 IST = ZoneInfo("Asia/Kolkata")
+updated_time_ist = now_ist().strftime("%d-%m-%Y %H:%M:%S IST")
 
 BRAND_PRODUCT_MAP = {
     'Apple': ['Phone', 'Tablet', 'Smartwatch'],
@@ -262,7 +263,7 @@ with col_a:
 with col_b:
     st.markdown('<div style="text-align:right;"><span class="live-pill"><span class="pulse-dot"></span>LIVE AUTO REFRESH 5s</span></div>', unsafe_allow_html=True)
     st.markdown(
-    f'<div class="small-note" style="text-align:right;margin-top:8px;">Updated: {now_ist().strftime("%d-%m-%Y %H:%M:%S IST")}</div>',
+    f'<div class="small-note" style="text-align:right;margin-top:8px;">Updated: {updated_time_ist}</div>',
     unsafe_allow_html=True
 )
     st.markdown(f'<div class="small-note" style="text-align:right;margin-top:4px;">Next sale cycle: ~{SALE_INTERVAL_SECONDS}s cadence</div>', unsafe_allow_html=True)
