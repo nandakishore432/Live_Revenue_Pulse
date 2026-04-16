@@ -34,6 +34,8 @@ PRODUCT_PRICE = {
     'Tablet': [15000, 22000, 30000],
     'Headphones': [2000, 3500, 5000],
     'Smartwatch': [3000, 6000, 9000],
+    'Speakers': [4500, 6000, 7500],
+    'DSLR Cameras': [34500, 39500, 43500],
 }
 
 CITY_COORDS = {
@@ -42,6 +44,8 @@ CITY_COORDS = {
     'Bengaluru': {'lat': 12.9716, 'lon': 77.5946},
     'Mumbai': {'lat': 19.0760, 'lon': 72.8777},
     'Pune': {'lat': 18.5204, 'lon': 73.8567},
+    'Kolkata': {'lat': 22.5726, 'lon': 88.3639},
+    'New Delhi': {'lat': 28.6139, 'lon': 77.2088},
 }
 
 BEHAVIOR_TAGS = ['Impulse', 'Planned', 'Weather-Driven', 'High Intent']
