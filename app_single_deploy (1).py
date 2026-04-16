@@ -226,8 +226,8 @@ with bottom_left:
 
 with bottom_right:
     product_mix = df.groupby('product', as_index=False)['price'].sum()
-    fig_pie = px.pie(product_mix, names='product', values='price', color:#ffffff, title='🛍️ Product Revenue Mix', hole=0.55)
-    fig_pie.update_layout(template='plotly_dark', paper_bgcolor='rgba(0,0,0,0)', height=340)
+    fig_pie = px.pie(product_mix, names='product', values='price', title='🛍️ Product Revenue Mix', hole=0.55)
+    fig_pie.update_layout(template='plotly_dark', paper_bgcolor='rgba(0,0,0,0)', color:#ffffff, height=340)
     st.plotly_chart(fig_pie, use_container_width=True)
 
 st.markdown('### 🛰️ Live Sales Feed')
