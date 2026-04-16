@@ -224,6 +224,7 @@ with bottom_left:
     fig_line.update_layout(title='⏱️ Revenue Trend (5-Min Buckets)', template='plotly_dark', paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=340, margin=dict(l=20, r=20, t=50, b=20), yaxis_title='Revenue', xaxis_title='Time')
     st.plotly_chart(fig_line, use_container_width=True)
 with bottom_right:
+     st.markdown('### 🛍️ Product Revenue Mix')
     product_mix = df.groupby('product', as_index=False)['price'].sum()
 
     fig_pie = px.pie(
@@ -264,5 +265,5 @@ if not weather.empty:
     weather_display['rain'] = weather_display['rain'].apply(lambda x: f'{x} mm' if pd.notnull(x) else 'N/A')
     st.dataframe(weather_display[['city', 'condition', 'temperature', 'rain', 'impact', 'sales_signal']], use_container_width=True, hide_index=True)
 
-st.markdown('### ✅ Day 3 Weather Impact View')
+st.markdown('### ✅ Weather Impact View')
 st.info('This dashboard flags whether Rain or Heat is currently affecting sales in active cities by combining live city-level weather conditions with operational sales monitoring.')
