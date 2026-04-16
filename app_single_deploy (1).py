@@ -222,7 +222,7 @@ with bottom_left:
     timeline = df.set_index('timestamp').resample('5min')['price'].sum().reset_index()
     fig_line = go.Figure()
     fig_line.add_trace(go.Scatter(x=timeline['timestamp'], y=timeline['price'], mode='lines+markers', line=dict(color='#5cc8ff', width=3), marker=dict(size=7), fill='tozeroy'))
-    fig_line.update_layout(title='⏱️ Revenue Trend (5-Min Buckets)', template='plotly_dark', paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=340, margin=dict(l=20, r=20, t=50, b=20), yaxis_title='Revenue', xaxis_title='Time')
+    #fig_line.update_layout(title='⏱️ Revenue Trend (5-Min Buckets)', template='plotly_dark', paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=340, margin=dict(l=20, r=20, t=50, b=20), yaxis_title='Revenue', xaxis_title='Time')
     st.plotly_chart(fig_line, use_container_width=True)
 with bottom_right:
     st.markdown('### 🛍️ Product Revenue Mix')
