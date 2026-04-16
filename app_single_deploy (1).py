@@ -224,7 +224,7 @@ with bottom_left:
     fig_line.update_layout(title='⏱️ Revenue Trend (5-Min Buckets)', template='plotly_dark', paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=340, margin=dict(l=20, r=20, t=50, b=20), yaxis_title='Revenue', xaxis_title='Time')
     st.plotly_chart(fig_line, use_container_width=True)
 with bottom_right:
-     st.markdown('### 🛍️ Product Revenue Mix')
+    st.markdown('### 🛍️ Product Revenue Mix')
     product_mix = df.groupby('product', as_index=False)['price'].sum()
 
     fig_pie = px.pie(
