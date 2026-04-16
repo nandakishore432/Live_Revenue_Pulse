@@ -18,7 +18,8 @@ SALE_INTERVAL_SECONDS = 30
 HEAT_THRESHOLD = 35
 MAX_ROWS = 2500
 IST = ZoneInfo("Asia/Kolkata")
-updated_time_ist = now_ist().strftime("%d-%m-%Y %H:%M:%S IST")
+def now_ist():
+    return datetime.now(IST)
 
 BRAND_PRODUCT_MAP = {
     'Apple': ['Phone', 'Tablet', 'Smartwatch'],
@@ -138,7 +139,7 @@ def generate_fake_sale(next_order_id):
     city = random.choice(list(CITY_COORDS.keys()))
     return {
         'order_id': next_order_id,
-        'timestamp': datetime.now(IST).isoformat(),
+        'timestamp': now_ist().isoformat(),
         'brand': brand,
         'product': product,
         'price': max(base_price + random.randint(-500, 1200), 500),
@@ -152,13 +153,13 @@ def generate_fake_sale(next_order_id):
 
 def append_sale_if_due():
     last_ts = get_last_timestamp()
-    now = datetime.now(IST)
+    now = now_ist()
     if last_ts is None or (now - last_ts).total_seconds() >= SALE_INTERVAL_SECONDS:
         sale = generate_fake_sale(get_max_order_id() + 1)
         conn = get_conn()
         pd.DataFrame([sale]).to_sql('sales', conn, if_exists='append', index=False)
         conn.close()
-
+        
 def trim_rows():
     conn = get_conn()
     cur = conn.cursor()
@@ -262,10 +263,13 @@ with col_a:
     st.markdown('<div class="banner-sub">Command-center dashboard for live revenue monitoring, anomaly response, and weather-linked city action</div>', unsafe_allow_html=True)
 with col_b:
     st.markdown('<div style="text-align:right;"><span class="live-pill"><span class="pulse-dot"></span>LIVE AUTO REFRESH 5s</span></div>', unsafe_allow_html=True)
-    st.markdown(
+    updated_time_ist = now_ist().strftime("%d-%m-%Y %H:%M:%S IST")
+
+st.markdown(
     f'<div class="small-note" style="text-align:right;margin-top:8px;">Updated: {updated_time_ist}</div>',
     unsafe_allow_html=True
 )
+  
     st.markdown(f'<div class="small-note" style="text-align:right;margin-top:4px;">Next sale cycle: ~{SALE_INTERVAL_SECONDS}s cadence</div>', unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
