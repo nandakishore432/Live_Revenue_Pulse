@@ -261,7 +261,7 @@ with col_a:
     st.markdown('<div class="banner-sub">Command-center dashboard for live revenue monitoring, anomaly response, and weather-linked city action</div>', unsafe_allow_html=True)
 with col_b:
     st.markdown('<div style="text-align:right;"><span class="live-pill"><span class="pulse-dot"></span>LIVE AUTO REFRESH 5s</span></div>', unsafe_allow_html=True)
-    st.markdown(f'<div class=\"small-note\" style=\"text-align:right;margin-top:8px;\">Updated: {datetime.now(IST).strftime(\"%d-%m-%Y %H:%M:%S IST\")}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class=\"small-note\" style=\"text-align:right;margin-top:8px;\">Updated: {now_ist().strftime(\"%d-%m-%Y %H:%M:%S IST\")}</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="small-note" style="text-align:right;margin-top:4px;">Next sale cycle: ~{SALE_INTERVAL_SECONDS}s cadence</div>', unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
