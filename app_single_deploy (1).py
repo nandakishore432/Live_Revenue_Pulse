@@ -228,6 +228,13 @@ with bottom_right:
     st.markdown('### 🛍️ Product Revenue Mix')
     product_mix = df.groupby('product', as_index=False)['price'].sum()
 
+    fig_pie = px.pie(
+        product_mix,
+        names='product',
+        values='price',
+        hole=0.55
+    )
+
     fig_pie.update_traces(
         textinfo='label+percent',
         textfont=dict(color='white', size=14),
