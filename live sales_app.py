@@ -344,5 +344,5 @@ if not weather.empty:
     weather_display['rain'] = weather_display['rain'].apply(lambda x: f'{x} mm' if pd.notnull(x) else 'N/A')
     st.dataframe(weather_display[['city', 'condition', 'temperature', 'rain', 'impact', 'sales_signal']], use_container_width=True, hide_index=True)
 
-st.markdown('### ✅ Day 3 Weather Impact View')
+st.markdown('### ✅ Weather Impact View')
 st.info('This dashboard persists order IDs using SQLite, auto-generates live sales every 30 seconds, supports sidebar slicers for brand, product, and city, and shows whether Rain or Heat is currently affecting active sales zones.')
