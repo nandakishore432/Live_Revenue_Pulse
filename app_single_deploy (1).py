@@ -22,7 +22,7 @@ PRODUCTS = {
     'Headphones': [2000, 3500, 5000],
     'Smartwatch': [3000, 6000, 9000],
     'Speakers': [4500, 6000, 7500],
-    'DSLR Camperas': [34500, 39500, 43500],
+    'DSLR Cameras': [34500, 39500, 43500],
 }
 
 CITY_COORDS = {
